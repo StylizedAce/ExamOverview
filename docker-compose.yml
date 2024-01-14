@@ -26,47 +26,15 @@ services:
 
   react-exam:
     image: "stylizedace/react-exam:latest"
-    container_name: "react-exam"
+    container_name: "examreact"
     networks:
       - backend
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.react-exam.rule=Host(`reactexam.stylizedace.dk`) || Host(`stylizedace.dk`)"
-      - "traefik.http.routers.react-exam.entrypoints=websecure"
-      - "traefik.http.routers.react-exam.tls.certresolver=myresolver"
+      - "traefik.http.routers.examreact.rule=Host(`examreact.stylizedace.dk`) || Host(`stylizedace.dk`)"
+      - "traefik.http.routers.examreact.entrypoints=websecure"
+      - "traefik.http.routers.examreact.tls.certresolver=myresolver"
       - "com.centurylinklabs.watchtower.enable=true"
-
-  # backend:
-  #   image: "magkon/frontendexam:backend"
-  #   container_name: "frontendexambackend"
-  #   networks:
-  #     - backend
-  #   labels:
-  #     - "traefik.enable=true"
-  #     - "traefik.http.routers.europe.rule=Host(`api.magkon.dk`) || Host(`magkon.dk`)"
-  #     - "traefik.http.routers.europe.entrypoints=websecure"
-  #     - "traefik.http.routers.europe.tls.certresolver=myresolver"
-  #     - "com.centurylinklabs.watchtower.enable=true"
-  #   ports:
-  #     - "7007:7007"
-
-  db:
-    image: postgres:latest
-    container_name: db
-    restart: unless-stopped
-    networks:
-      - backend
-    environment:
-      POSTGRES_USER: dev
-      POSTGRES_PASSWORD: ax2
-    labels:
-      # Watchtower configuration
-      com.centurylinklabs.watchtower.enable: "false" # disables Watchtower for this container
-    volumes:
-      - ./data:/var/lib/postgresql/data/
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "5432:5432"
 
 networks:
   backend:
