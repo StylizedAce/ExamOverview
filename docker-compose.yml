@@ -25,7 +25,7 @@ services:
       - backend
 
   react-exam:
-    image: "stylizedace/react-exam:latest"
+    image: "stylizedace/reactexam:latest"
     container_name: "examreact"
     networks:
       - backend
