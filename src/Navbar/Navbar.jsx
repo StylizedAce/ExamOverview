@@ -12,7 +12,6 @@ const Navbar = () => {
 
   const questions = [
     { label: 'Question 1', routes: ['/higher-order-functions', '/jsx-and-components', '/react-router'] },
-    { label: 'Question 2', routes: ['/callback-function', '/jsx-example', '/Flexgrid-box'] },
     { label: 'Question 3', routes: ['/package-files', '/props-and-state', '/deploy-react-app'] },
     { label: 'Question 4', routes: ['/promises', '/responsiveness'] },
     { label: 'Question 5', routes: ['/sync-async', '/conditional-rendering', '/ternary-operator', '/jwt-demo'] },
