@@ -1,0 +1,73 @@
+version: "3.3"
+
+services:
+
+  traefik:
+    image: "traefik:v2.10"
+    container_name: "traefik"
+    command:
+      - "--api.insecure=true" # enables the Traefik API. True by default
+      - "--providers.docker=true" # enables the Docker provider
+      - "--providers.docker.exposedbydefault=false" # prevents Traefik from creating routes for containers that don't have a traefik.enable=true label
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=GLBcraft1234@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+    ports:
+      - "443:443" # sets the port for HTTP
+      - "8080:8080" # sets the port for HTTPS
+    volumes:
+      - "./letsencrypt:/letsencrypt" # Copies the Let's Encrypt certificate locally for ease of backing up
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - backend
+
+  react-exam:
+    image: "stylizedace/react-exam:latest"
+    container_name: "react-exam"
+    networks:
+      - backend
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.react-exam.rule=Host(`reactexam.stylizedace.dk`) || Host(`stylizedace.dk`)"
+      - "traefik.http.routers.react-exam.entrypoints=websecure"
+      - "traefik.http.routers.react-exam.tls.certresolver=myresolver"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  # backend:
+  #   image: "magkon/frontendexam:backend"
+  #   container_name: "frontendexambackend"
+  #   networks:
+  #     - backend
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.europe.rule=Host(`api.magkon.dk`) || Host(`magkon.dk`)"
+  #     - "traefik.http.routers.europe.entrypoints=websecure"
+  #     - "traefik.http.routers.europe.tls.certresolver=myresolver"
+  #     - "com.centurylinklabs.watchtower.enable=true"
+  #   ports:
+  #     - "7007:7007"
+
+  db:
+    image: postgres:latest
+    container_name: db
+    restart: unless-stopped
+    networks:
+      - backend
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: ax2
+    labels:
+      # Watchtower configuration
+      com.centurylinklabs.watchtower.enable: "false" # disables Watchtower for this container
+    volumes:
+      - ./data:/var/lib/postgresql/data/
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+networks:
+  backend:
+    driver: bridge
