@@ -1,0 +1,19 @@
+#root {
+  margin: 0 auto;
+  background-color: #242424 !important;
+}
+
+/* App.css */
+.app-container {
+  display: flex;
+  width: 100vw;
+  flex-direction: column; /* Stack children vertically */
+}
+
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
