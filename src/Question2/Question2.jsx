@@ -49,7 +49,6 @@ const JSXExample = () => {
 
 
 
-
 // Security/Routing/Styling
 const FlexboxGridExample = () => {
   const [useFlexbox, setUseFlexbox] = useState(true);
