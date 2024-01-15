@@ -11,6 +11,8 @@ import Welcome from './Welcome';
 import {SyncAsync, ConditionRenderingExample, TernaryOperatorExample, JWTDemonstration } from './Question5/Question5';
 import  { UseEffectExample, Storage, SPA } from './Question6/Question6';
 import { FormSubmitEvents, WindowObject } from './Question7/Question7';
+import { EventBubbling, KeyAttribute, MapFunction } from './Question8/Question8';
+import { ControlledUncontrolledExample, VariableScopes } from './Question9/Question9';
 
 
 
@@ -19,7 +21,9 @@ const App = () => {
   return (
     <Router>
       <div className="app-container">
+        <header>
         <Navbar />
+        </header>
         <div className="content-container">
           <Outlet/>
           <Routes>
@@ -44,6 +48,11 @@ const App = () => {
             <Route path="/spa" element={<SPA/>} />
             <Route path="/window" element={<WindowObject/>} />
             <Route path="/events" element={<FormSubmitEvents/>} />
+            <Route path="/event-bubbling" element={<EventBubbling/>} />
+            <Route path="/key-attribute" element={<KeyAttribute/>} />
+            <Route path="/map-function" element={<MapFunction/>} />
+            <Route path="/scopes" element={<VariableScopes/>} />
+            <Route path="/controlled-uncontrolled" element={<ControlledUncontrolledExample/>} />
 
 
             <Route path="*" element={<h1>Page not found</h1>} />
