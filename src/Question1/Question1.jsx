@@ -5,34 +5,22 @@ import Comp2 from './ReactComponents/Comp2';
 
 // Javascript
 const HigherOrderFunctionExample = () => {
+  const [numbers, setNumbers] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
-  const [customText, setCustomText] = useState('customText');
-
-  const handleClickGenerator = (message) => {
-    return () => {
-      alert(message);
-    };
+  const filterNumbers = (predicate) => {
+    return numbers.filter(predicate);
   };
 
-  const handleClickHello = handleClickGenerator('Hello, World!');
-  const handleClickGoodbye = handleClickGenerator('Goodbye!');
- 
-  function handleClickCustomTextChange(event) {
-    setCustomText(event.target.value);
-  }
-  
-  const handleClickCustomText = handleClickGenerator(customText);
+  // Example higher-order functions
+  const evenNumbers = filterNumbers((num) => num % 2 === 0);
+  const oddNumbers = filterNumbers((num) => num % 2 !== 0);
 
   return (
     <div>
-      <h1>Higher order example</h1>
-      <h3>Higher order functions are functions that take other functions as arguments or return functions as their results.</h3>
-      <button onClick={handleClickHello}>Say Hello</button>
-      <button onClick={handleClickGoodbye}>Say Goodbye</button>
-      <input type="text" placeholder="Type something" id='customText' onChange={handleClickCustomTextChange}/>
-      <button onClick={handleClickCustomText}>Say customtext</button>
-
-
+      <h1>Higher Order Function Example</h1>
+      <p>Original Numbers: {numbers.join(', ')}</p>
+      <p>Even Numbers: {evenNumbers.join(', ')}</p>
+      <p>Odd Numbers: {oddNumbers.join(', ')}</p>
     </div>
   );
 };

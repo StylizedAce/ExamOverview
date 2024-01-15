@@ -7,26 +7,45 @@ import '../Question2/styles/Question2.css';
 
 
 // Javascript
-const CallbackFunctionExample = () => {
-  const [clickCount, setClickCount] = useState(0);
 
-  const handleButtonClick = () => {
-    setClickCount(prevCount => prevCount + 1);
+const CallbackFunctionExample = () => {
+  const [inputString, setInputString] = useState('');
+  const [result, setResult] = useState('');
+
+  const manipulateString = (callback) => {
+    if (callback && inputString) {
+      const manipulatedString = callback(inputString);
+      setResult(manipulatedString);
+    }
+  };
+
+  const invertString = (str) => {
+    return str ? str.split('').reverse().join('') : '';
+  };
+
+  const scrambleString = (str) => {
+    return str ? str.split('').sort(() => Math.random() - 0.5).join('') : '';
   };
 
   return (
     <div>
-      <h1>Callback Function Example</h1>
-      <p>Button Click Count: {clickCount}</p>
-      <button onClick={handleButtonClick}>Click me</button>
-      <p>
-        A callbackfunction is a function that takes another function as an arguement.
-        You can often associate the term with async-functions as they often take a callback function as an arguement.
-      </p>
+      <h1>Callback functions</h1>
+      <input
+        type="text"
+        value={inputString}
+        onChange={(e) => setInputString(e.target.value)}
+        placeholder="Enter your string"
+      />
+      <div>
+        <button onClick={() => manipulateString(invertString)}>Invert</button>
+        <button onClick={() => manipulateString(scrambleString)}>Scramble</button>
+      </div>
+      <div>
+        {result && <p>Result: {result}</p>}
+      </div>
     </div>
   );
 };
-
 
 
 
