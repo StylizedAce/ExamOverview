@@ -13,6 +13,7 @@ import  { UseEffectExample, Storage, SPA } from './Question6/Question6';
 import { FormSubmitEvents, WindowObject } from './Question7/Question7';
 import { EventBubbling, KeyAttribute, MapFunction } from './Question8/Question8';
 import { ControlledUncontrolledExample, VariableScopes } from './Question9/Question9';
+import { CorsExplain, ErrorExample, JSOperators, UseEffectState } from './Question10/Question10';
 
 
 
@@ -53,6 +54,10 @@ const App = () => {
             <Route path="/map-function" element={<MapFunction/>} />
             <Route path="/scopes" element={<VariableScopes/>} />
             <Route path="/controlled-uncontrolled" element={<ControlledUncontrolledExample/>} />
+            <Route path="/operators" element={<JSOperators/>} />
+            <Route path="/useStateEffect" element={<UseEffectState/>} />
+            <Route path="/error" element={<ErrorExample/>} />
+            <Route path="/cors" element={<CorsExplain/>} />
 
 
             <Route path="*" element={<h1>Page not found</h1>} />
